@@ -1,0 +1,44 @@
+# Definition for a  binary tree node
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class BSTIterator(object):
+    def __init__(self, root):
+        """
+        :type root: TreeNode
+        """
+        self.stack = [] #空间复杂性 O(h)
+        if root:
+            self.stack.append(root)
+            while root.left:
+                root = root.left
+                self.stack.append(root)
+
+    def hasNext(self):
+        """
+        :rtype: bool
+        """
+        if self.stack:
+            return True 
+        return False 
+
+    def next(self):
+        """
+        :rtype: int
+        """
+        temp = self.stack.pop()
+        if temp.right:  #弹出栈的末位元素，它若有右节点，将该右节点的左节点（各个深度）压入栈中
+            cur = temp.right  
+            self.stack.append(cur)
+            while cur.left: 
+                cur = cur.left
+                self.stack.append(cur)
+        
+        return temp.val  
+
+# Your BSTIterator will be called like this:
+# i, v = BSTIterator(root), []
+# while i.hasNext(): v.append(i.next())
