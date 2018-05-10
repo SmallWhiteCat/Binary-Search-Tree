@@ -1,0 +1,7 @@
+1 二叉树遍历左子树
+  self.stack = [] #空间复杂性 O(h)
+  if root:
+      self.stack.append(root)
+      while root.left:
+          root = root.left
+          self.stack.append(root)
